@@ -25,12 +25,18 @@ const Statistics = ({ good, neutral, bad }) => {
 	return (
 		<section>
 			<Header text="Statistics" />
-			<Display text="Good" value={good} />
-			<Display text="Neutral" value={neutral} />
-			<Display text="Bad" value={bad} />
-			<Display text="All" value={bad + neutral + good} />
-			<Display text="Average" value={calculateAverage()} />
-			<Display text="Positive" value={`${calculatePositivePercentage()}%`} />
+			{good + neutral + bad === 0 ? (
+				<div>No feedback given</div>
+			) : (
+				<>
+					<Display text="Good" value={good} />
+					<Display text="Neutral" value={neutral} />
+					<Display text="Bad" value={bad} />
+					<Display text="All" value={bad + neutral + good} />
+					<Display text="Average" value={calculateAverage()} />
+					<Display text="Positive" value={`${calculatePositivePercentage()}%`} />
+				</>
+			)}
 		</section>
 	);
 };
@@ -48,7 +54,7 @@ const App = () => {
 				<Button onClick={() => setNeutral(neutral + 1)} text="Neutral" />
 				<Button onClick={() => setBad(bad + 1)} text="Bad" />
 			</section>
-			<Statistics good={good} neutral={neutral} bad={bad} />
+			{<Statistics good={good} neutral={neutral} bad={bad} />}
 		</>
 	);
 };
