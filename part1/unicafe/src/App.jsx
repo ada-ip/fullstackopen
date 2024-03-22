@@ -4,7 +4,7 @@ const Header = ({ text }) => <h2>{text}</h2>;
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
-const Display = ({ text, value }) => (
+const StatisticLine = ({ text, value }) => (
 	<p>
 		{text}: {value}
 	</p>
@@ -29,12 +29,12 @@ const Statistics = ({ good, neutral, bad }) => {
 				<div>No feedback given</div>
 			) : (
 				<>
-					<Display text="Good" value={good} />
-					<Display text="Neutral" value={neutral} />
-					<Display text="Bad" value={bad} />
-					<Display text="All" value={bad + neutral + good} />
-					<Display text="Average" value={calculateAverage()} />
-					<Display text="Positive" value={`${calculatePositivePercentage()}%`} />
+					<StatisticLine text="Good" value={good} />
+					<StatisticLine text="Neutral" value={neutral} />
+					<StatisticLine text="Bad" value={bad} />
+					<StatisticLine text="All" value={bad + neutral + good} />
+					<StatisticLine text="Average" value={calculateAverage()} />
+					<StatisticLine text="Positive" value={`${calculatePositivePercentage()}%`} />
 				</>
 			)}
 		</section>
