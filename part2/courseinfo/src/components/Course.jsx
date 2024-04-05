@@ -2,12 +2,12 @@ import Header from "./Header";
 import Content from "./Content";
 import Total from "./Total";
 
-const Course = ({ course }) => {
+const Course = ({ course }) => (
 	<section>
 		<Header courseTitle={course.name} />
 		<Content parts={course.parts} />
 		<Total parts={course.parts} />
-	</section>;
-};
+	</section>
+);
 
 export default Course;
