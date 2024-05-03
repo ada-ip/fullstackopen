@@ -6,11 +6,13 @@ const App = () => {
 
 	const addPerson = (e) => {
 		e.preventDefault();
-		if (newName) {
-			const newPerson = { name: newName };
-			setPersons([...persons, newPerson]);
-			setNewName("");
+		if (!newName) return;
+		if (persons.some((person) => person.name === newName)) {
+			alert(`${newName} is already added to the phonebook`);
+			return;
 		}
+		setPersons([...persons, { name: newName }]);
+		setNewName("");
 	};
 
 	return (
