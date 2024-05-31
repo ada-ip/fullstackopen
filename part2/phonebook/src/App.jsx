@@ -14,7 +14,7 @@ const App = () => {
 		axios
 			.get("http://localhost:3001/persons")
 			.then((response) => setPersons(response.data))
-			.catch((error) => console.log(error));
+			.catch((error) => console.error(error));
 	}, []);
 
 	const addPerson = (e) => {
@@ -33,11 +33,18 @@ const App = () => {
 		}
 		const newPerson = {
 			name: newName,
-			phone: newPhone
+			number: newPhone
 		};
-		setPersons([...persons, newPerson]);
-		setNewName("");
-		setNewPhone("");
+		axios
+			.post("http://localhost:3001/persons", newPerson)
+			.then((response) => {
+				setPersons([...persons, response.data]);
+				setNewName("");
+				setNewPhone("");
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	};
 
 	const numbersToShow = filter ? persons.filter((p) => p.name.toLowerCase().includes(filter.toLowerCase())) : persons;
