@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import personsService from "./services/persons";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import PersonsList from "./components/PersonsList";
@@ -11,9 +11,9 @@ const App = () => {
 	const [filter, setFilter] = useState("");
 
 	useEffect(() => {
-		axios
-			.get("http://localhost:3001/persons")
-			.then((response) => setPersons(response.data))
+		personsService
+			.getAll()
+			.then((initialPersons) => setPersons(initialPersons))
 			.catch((error) => console.error(error));
 	}, []);
 
@@ -35,10 +35,10 @@ const App = () => {
 			name: newName,
 			number: newPhone
 		};
-		axios
-			.post("http://localhost:3001/persons", newPerson)
-			.then((response) => {
-				setPersons([...persons, response.data]);
+		personsService
+			.create(newPerson)
+			.then((createdPerson) => {
+				setPersons([...persons, createdPerson]);
 				setNewName("");
 				setNewPhone("");
 			})
