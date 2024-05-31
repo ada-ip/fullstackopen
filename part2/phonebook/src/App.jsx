@@ -47,6 +47,17 @@ const App = () => {
 			});
 	};
 
+	const deletePerson = (id, name) => {
+		if (confirm(`Do you really want to delete ${name}'s phone?`)) {
+			personsService
+				.deletePerson(id)
+				.then((deletedPerson) => {
+					setPersons(persons.filter((p) => p.id !== deletedPerson.id));
+				})
+				.catch((error) => console.error(error));
+		}
+	};
+
 	const numbersToShow = filter ? persons.filter((p) => p.name.toLowerCase().includes(filter.toLowerCase())) : persons;
 
 	return (
@@ -62,7 +73,7 @@ const App = () => {
 				addPerson={addPerson}
 			/>
 			<h3>Numbers</h3>
-			<PersonsList persons={numbersToShow} />
+			<PersonsList persons={numbersToShow} handleDelete={deletePerson} />
 		</div>
 	);
 };
