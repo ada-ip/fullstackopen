@@ -9,6 +9,10 @@ const create = (person) => {
 	return axios.post(baseUrl, person).then((response) => response.data);
 };
 
+const update = (id, person) => {
+	return axios.put(`${baseUrl}/${id}`, person).then((response) => response.data);
+};
+
 const deletePerson = (id) => {
 	return axios.delete(`${baseUrl}/${id}`).then((response) => response.data);
 };
@@ -16,5 +20,6 @@ const deletePerson = (id) => {
 export default {
 	getAll,
 	create,
+	update,
 	deletePerson
 };

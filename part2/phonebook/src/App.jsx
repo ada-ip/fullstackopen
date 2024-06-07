@@ -23,28 +23,42 @@ const App = () => {
 			alert(`Both name and phone are mandatory`);
 			return;
 		}
-		if (persons.some((person) => person.name === newName)) {
-			alert(`${newName} is already added to the phonebook`);
-			return;
-		}
-		if (persons.some((person) => person.phone === newPhone)) {
-			alert(`${newPhone} is already added to the phonebook`);
-			return;
-		}
 		const newPerson = {
 			name: newName,
 			number: newPhone
 		};
-		personsService
-			.create(newPerson)
-			.then((createdPerson) => {
-				setPersons([...persons, createdPerson]);
-				setNewName("");
-				setNewPhone("");
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+
+		const person = persons.find((person) => person.name === newName);
+		if (person) {
+			if (
+				confirm(
+					`${newName} is already added to the phonebook. Do you want to replace the old number with a new one?`
+				)
+			) {
+				personsService
+					.update(person.id, { ...person, number: newPerson.number })
+					.then((updatedPerson) => {
+						const updatedPersons = persons.map((p) => (p.id === updatedPerson.id ? updatedPerson : p));
+						setPersons(updatedPersons);
+						setNewName("");
+						setNewPhone("");
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
+		} else {
+			personsService
+				.create(newPerson)
+				.then((createdPerson) => {
+					setPersons([...persons, createdPerson]);
+					setNewName("");
+					setNewPhone("");
+				})
+				.catch((error) => {
+					console.error(error);
+				});
+		}
 	};
 
 	const deletePerson = (id, name) => {
