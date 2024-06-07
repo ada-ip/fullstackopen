@@ -11,6 +11,7 @@ const App = () => {
 	const [newPhone, setNewPhone] = useState("");
 	const [filter, setFilter] = useState("");
 	const [notificationMsg, setNotificationMsg] = useState("");
+	const [notificationType, setNotificationType] = useState("info");
 
 	useEffect(() => {
 		personsService
@@ -45,12 +46,17 @@ const App = () => {
 						setNewName("");
 						setNewPhone("");
 						setNotificationMsg(`${updatedPerson.name}'s phone number has been correctly updated`);
+						setNotificationType("info");
 						setTimeout(() => {
 							setNotificationMsg("");
 						}, 5000);
 					})
 					.catch((error) => {
-						console.log(error);
+						setNotificationMsg(`${person.name}'s phone number has already been deleted from the server`);
+						setNotificationType("error");
+						setTimeout(() => {
+							setNotificationMsg("");
+						}, 5000);
 					});
 			}
 		} else {
@@ -61,6 +67,7 @@ const App = () => {
 					setNewName("");
 					setNewPhone("");
 					setNotificationMsg(`Added ${createdPerson.name}'s phone number`);
+					setNotificationType("info");
 					setTimeout(() => {
 						setNotificationMsg("");
 					}, 5000);
@@ -87,7 +94,7 @@ const App = () => {
 	return (
 		<div>
 			<h2>Phonebook</h2>
-			<Notification message={notificationMsg} />
+			<Notification message={notificationMsg} type={notificationType} />
 			<Filter filter={filter} setFilter={setFilter} />
 			<h3>Add a new number</h3>
 			<PersonForm

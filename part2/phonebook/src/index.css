@@ -1,7 +1,6 @@
 .notification {
 	padding: 0.7em;
 	background-color: rgb(213, 208, 208);
-	color: green;
-	border: 2px solid green;
+	border: 2px solid;
 	border-radius: 5px;
 }

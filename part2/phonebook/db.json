@@ -2,7 +2,7 @@
   "persons": [
     {
       "name": "Arto Hellas",
-      "number": "032-58741",
+      "number": "123-698523",
       "id": "1"
     },
     {
@@ -29,11 +29,6 @@
       "id": "3a7d",
       "name": "Humpfhre",
       "number": "45639852147"
-    },
-    {
-      "id": "bc62",
-      "name": "Sarah Cook",
-      "number": "015--8592"
     }
   ]
 }
